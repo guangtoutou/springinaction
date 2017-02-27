@@ -2,16 +2,20 @@ package com.springinaction.knights;
 
 import java.io.PrintStream;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-public class SlayDragonQuest implements Quest{
-	
+@Component
+public class SlayDragonQuest implements Quest {
+
 	private PrintStream stream;
 	
-	public SlayDragonQuest(PrintStream stream){
+	@Autowired
+	public SlayDragonQuest(PrintStream stream) {
 		this.stream = stream;
 	}
-	public void embark(){
+
+	public void embark() {
 		stream.println("Embarking on quest to slay the dragon");
 	}
 }

@@ -7,7 +7,7 @@ public class KnightMain {
 	public static void main(String[] args) {
 		// ClassPathXmlApplicationContext context = new
 		// ClassPathXmlApplicationContext("knights.xml");
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext("KnightConfig");
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(KnightConfigAuto.class);
 		Knight knight = context.getBean(Knight.class);
 		knight.embarkOnQuest();
 		context.close();
