@@ -1,11 +1,13 @@
 package com.springinaction.knights;
-import org.springframework.context.support.*;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class KnightMain {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("knights.xml");
+		// ClassPathXmlApplicationContext context = new
+		// ClassPathXmlApplicationContext("knights.xml");
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext("KnightConfig");
 		Knight knight = context.getBean(Knight.class);
 		knight.embarkOnQuest();
 		context.close();
