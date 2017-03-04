@@ -6,14 +6,14 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class KnightConfig {
 
-/*	@Bean
-	public Knight setKnight(){
+	@Bean
+	public Knight setKnight() {
 		return new BraveKnight(quest());
 	}
-	
+
 	@Bean
-	public Quest quest(){
+	public Quest quest() {
 		return new SlayDragonQuest(System.out);
 	}
-	*/
+
 }
