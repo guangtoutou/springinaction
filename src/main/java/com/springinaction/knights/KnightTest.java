@@ -11,13 +11,16 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = KnightConfig.class)
 public class KnightTest {
+
 	@Autowired
 	private Knight knight;
 
 	@Test
 	public void knightShouldNotBeNull() {
 		knight.embarkOnQuest();
+
 		assertNotNull(knight);
+
 	}
 
 }
