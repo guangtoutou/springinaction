@@ -9,7 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = KnightConfigAuto.class)
+@ContextConfiguration(classes = KnightConfig.class)
 public class KnightTest {
 
 	@Autowired
@@ -18,7 +18,6 @@ public class KnightTest {
 	@Test
 	public void knightShouldNotBeNull() {
 		knight.embarkOnQuest();
-		assertNotNull(knight);
 	}
 
 }
