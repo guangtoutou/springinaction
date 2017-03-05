@@ -10,14 +10,12 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+@Component
 public class SpitterRepository {
+	@Autowired
 	private DataSource ds;
 
 	private String SQL_SELECT_SPITTER = "select id, username, fullname from spitter where id = ?";
-
-	public SpitterRepository(DataSource ds) {
-		this.ds = ds;
-	}
 
 	public void findSpitterByID(Long id) {
 		Connection conn = null;
@@ -30,7 +28,7 @@ public class SpitterRepository {
 			stmt.setLong(1, id);
 			rs = stmt.executeQuery();
 			if (rs.next()) {
-				System.out.print(rs.getString("username\t"));
+				System.out.print(rs.getString("username"));
 				System.out.println(rs.getString("fullname"));
 			}
 		} catch (SQLException e) {
