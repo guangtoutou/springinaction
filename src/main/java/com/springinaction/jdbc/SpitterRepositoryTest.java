@@ -9,7 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = DataSourceConfig.class)
-@ActiveProfiles("MySQL")
+@ActiveProfiles("H2")
 public class SpitterRepositoryTest {
 	
 	@Autowired

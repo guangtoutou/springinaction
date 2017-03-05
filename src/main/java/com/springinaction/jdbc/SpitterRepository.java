@@ -1,46 +1,40 @@
 package com.springinaction.jdbc;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import javax.sql.DataSource;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 @Component
 public class SpitterRepository {
-	@Autowired
-	private DataSource ds;
 
-	private String SQL_SELECT_SPITTER = "select id, username, fullname from spitter where id = ?";
+	private JdbcOperations jdbcOperations;;
+
+	private String SQL_SELECT_SPITTER = "select * from spitter where id = ?";
+
+	@Autowired
+	public SpitterRepository(JdbcOperations jdbcOperations) {
+		this.jdbcOperations = jdbcOperations;
+
+	}
 
 	public void findSpitterByID(Long id) {
-		Connection conn = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
 
-		try {
-			conn = ds.getConnection();
-			stmt = conn.prepareStatement(SQL_SELECT_SPITTER);
-			stmt.setLong(1, id);
-			rs = stmt.executeQuery();
-			if (rs.next()) {
-				System.out.print(rs.getString("username"));
-				System.out.println(rs.getString("fullname"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (rs != null)
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+		List<Spitter> spitters = jdbcOperations.query(SQL_SELECT_SPITTER, new SpitterRowMapper(), id);
+		for (Spitter spitter : spitters) {
+			System.out.println(spitter.getFullName());
+		}
+	}
+
+	private static final class SpitterRowMapper implements RowMapper<Spitter> {
+		public Spitter mapRow(ResultSet rs, int rowNum) throws SQLException {
+			return new Spitter(rs.getLong("id"), rs.getString("username"), rs.getString("password"),
+					rs.getString("fullName"), rs.getString("email"), rs.getBoolean("updateByEmail"));
 		}
 	}
 }
