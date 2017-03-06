@@ -2,51 +2,45 @@ package com.springinaction.orm;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class Hibernate {
-	private SessionFactory sessionFactory;
+	private EntityManagerFactory entityManagerFactory;
 
 	@Before
 	public void setUp() throws Exception {
-		// A SessionFactory is set up once for an application!
-		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-		try {
-			sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-		} catch (Exception e) {
-			// The registry would be destroyed by the SessionFactory, but we had
-			// trouble building the SessionFactory
-			// so destroy it manually.
-			StandardServiceRegistryBuilder.destroy(registry);
-		}
+		// like discussed with regards to SessionFactory, an
+		// EntityManagerFactory is set up once for an application
+		// IMPORTANT: notice how the name here matches the name we gave the
+		// persistence-unit in persistence.xml!
+		entityManagerFactory = Persistence.createEntityManagerFactory("com.springinaction.orm.spitter");
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		if (sessionFactory != null) {
-			sessionFactory.close();
-		}
+		entityManagerFactory.close();
+
 	}
 
 	@Test
 	public void testHibernate() {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
 
 		// now lets pull events from the database and list them
-		Session session = sessionFactory.openSession();
-		session.beginTransaction();
-		List result = session.createQuery("from Spitter").list();
+		entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		List<Spitter> result = entityManager.createQuery("from Spitter", Spitter.class).getResultList();
 		for (Spitter spitter : (List<Spitter>) result) {
 			System.out.println("Event (" + spitter.getFullName() + ") : " + spitter.getEmail());
 		}
-		session.getTransaction().commit();
-		session.close();
+		entityManager.getTransaction().commit();
+		entityManager.close();
 	}
 
 }
