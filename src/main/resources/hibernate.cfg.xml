@@ -30,10 +30,9 @@
 
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">true</property>
-
-
-
-        <mapping resource="com/springinaction/orm/Spitter.hbm.xml"/>
+        
+        <!-- Names the annotated entity class -->
+        <mapping class="com.springinaction.orm.Spitter"/>
 
     </session-factory>
 
