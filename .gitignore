@@ -1,4 +1,11 @@
-/target/
-/.classpath
-/.project
+.classpath
+
+.project
+
 *.prefs
+
+/bin/
+
+/target/
+
+*.DS_Store
