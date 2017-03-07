@@ -9,6 +9,7 @@
         </description>
 
 		<class>com.springinaction.orm.Spitter</class>
+		<class>com.springinaction.orm.Spittle</class>
 
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />

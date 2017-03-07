@@ -35,9 +35,9 @@ public class Hibernate {
 		// now lets pull events from the database and list them
 		entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
-		List<Spitter> result = entityManager.createQuery("from Spitter", Spitter.class).getResultList();
-		for (Spitter spitter : (List<Spitter>) result) {
-			System.out.println("Event (" + spitter.getFullName() + ") : " + spitter.getEmail());
+		List<Spittle> result = entityManager.createQuery("from Spittle", Spittle.class).getResultList();
+		for (Spittle spittle :  result) {
+			System.out.println("Event (" + spittle.getMessage() + ") : " + spittle.getSpitter().getFullName());
 		}
 		entityManager.getTransaction().commit();
 		entityManager.close();
